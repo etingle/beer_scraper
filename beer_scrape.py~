@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup
-import urllib2, time, re
+import urllib2, time, re, util
 
 ctr=3
 
