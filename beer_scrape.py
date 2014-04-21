@@ -1,7 +1,6 @@
-from bs4 import BeautifulSoup
-import urllib2, time
+from BeautifulSoup import BeautifulSoup
+import urllib2, time, re, util
 
-#base="http://www.beeradvocate.com/2/"
 ctr=3
 
 
@@ -12,10 +11,20 @@ while ctr<5:
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31')
     source = urllib2.urlopen(req).read()
     time.sleep(1)
-#    f=urllib.urlopen("http://direct.beeradvocate.com/"+str(ctr)+"/")
- #   f=grab_cloudflare("http://www.beeradvocate.com/2/3/")
     soup=BeautifulSoup(source)
-    title=str(soup.findAll("title"))
+    titles=str(soup.findAll("title"))
+
+    print titles
+    title=re.search(r'(?<=<title>).*?(?=</title>)',titles).group()
+
+
+   # print title
+
     beer,brewery,city,beerad=title.split("|")
     print beer
+    styles=str(soup.find("a",{"href":re.compile("/beer/style/(.+?)")}).find("b"))
+    styles=styles.replace("<b>","")
+    styles=styles.replace("</b>","")
+    
+    print styles
     ctr=ctr+1
