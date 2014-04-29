@@ -54,8 +54,6 @@ while ctr<1469:
     #review=re.findall('
     #print review
     notes=[re.sub(r'[^\d.\s]+','',r) for r in notes]
-    remove=['<br />','\r','\x93','\xc2','\x94']
- 
     
     for x in range(0,3):
         print reviewers[x]+"\n"+notes[x]+"\n"+review[x]
